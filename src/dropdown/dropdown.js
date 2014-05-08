@@ -103,9 +103,9 @@ angular.module('ui.bootstrap.dropdown', [])
     }
   });
 
-  $scope.$on('$locationChangeSuccess', function() {
+  /*$scope.$on('$locationChangeSuccess', function() {
     scope.isOpen = false;
-  });
+  });*/
 
   $scope.$on('$destroy', function() {
     scope.$destroy();
