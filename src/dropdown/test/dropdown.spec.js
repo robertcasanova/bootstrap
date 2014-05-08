@@ -75,13 +75,13 @@ describe('dropdownToggle', function() {
       expect(element.hasClass('open')).toBe(true);
     });
 
-    it('should close on $location change', function() {
-      clickDropdownToggle();
-      expect(element.hasClass('open')).toBe(true);
-      $rootScope.$broadcast('$locationChangeSuccess');
-      $rootScope.$apply();
-      expect(element.hasClass('open')).toBe(false);
-    });
+    // it('should close on $location change', function() {
+    //   clickDropdownToggle();
+    //   expect(element.hasClass('open')).toBe(true);
+    //   $rootScope.$broadcast('$locationChangeSuccess');
+    //   $rootScope.$apply();
+    //   expect(element.hasClass('open')).toBe(false);
+    // });
 
     it('should only allow one dropdown to be open at once', function() {
       var elm1 = dropdown();
