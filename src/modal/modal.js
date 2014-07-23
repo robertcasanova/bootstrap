@@ -94,8 +94,18 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
         $timeout(function () {
           // trigger CSS transitions
           scope.animate = true;
-          // focus a freshly-opened modal
-          element[0].focus();
+
+          /**
+           * Auto-focusing of a freshly-opened modal element causes any child elements
+           * with the autofocus attribute to loose focus. This is an issue on touch
+           * based devices which will show and then hide the onscreen keyboard.
+           * Attempts to refocus the autofocus element via JavaScript will not reopen
+           * the onscreen keyboard. Fixed by updated the focusing logic to only autofocus
+           * the modal element if the modal does not contain an autofocus element.
+           */
+          if (!element[0].querySelectorAll('[autofocus]').length) {
+            element[0].focus();
+          }
         });
 
         scope.close = function (evt) {
@@ -303,8 +313,9 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
 
           function getTemplatePromise(options) {
             return options.template ? $q.when(options.template) :
-              $http.get(options.templateUrl, {cache: $templateCache}).then(function (result) {
-                return result.data;
+              $http.get(angular.isFunction(options.templateUrl) ? (options.templateUrl)() : options.templateUrl,
+                {cache: $templateCache}).then(function (result) {
+                  return result.data;
               });
           }
 
@@ -354,7 +365,7 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
               modalScope.$close = modalInstance.close;
               modalScope.$dismiss = modalInstance.dismiss;
 
-              var ctrlLocals = {};
+              var ctrlInstance, ctrlLocals = {};
               var resolveIter = 1;
 
               //controllers
@@ -365,7 +376,10 @@ angular.module('ui.bootstrap.modal', ['ui.bootstrap.transition'])
                   ctrlLocals[key] = tplAndVars[resolveIter++];
                 });
 
-                $controller(modalOptions.controller, ctrlLocals);
+                ctrlInstance = $controller(modalOptions.controller, ctrlLocals);
+                if (modalOptions.controller) {
+                  modalScope[modalOptions.controllerAs] = ctrlInstance;
+                }
               }
 
               $modalStack.open(modalInstance, {
