@@ -56,14 +56,14 @@ module.exports = function(grunt) {
           banner: '<%= meta.banner %><%= meta.modules %>\n'
         },
         src: [], //src filled in by build task
-        dest: '<%= dist %>/<%= filename %>-<%= pkg.version %>.js'
+        dest: '<%= dist %>/<%= filename %>.js'
       },
       dist_tpls: {
         options: {
           banner: '<%= meta.banner %><%= meta.all %>\n<%= meta.tplmodules %>\n'
         },
         src: [], //src filled in by build task
-        dest: '<%= dist %>/<%= filename %>-tpls-<%= pkg.version %>.js'
+        dest: '<%= dist %>/<%= filename %>-tpls.js'
       }
     },
     copy: {
@@ -95,11 +95,11 @@ module.exports = function(grunt) {
       },
       dist:{
         src:['<%= concat.dist.dest %>'],
-        dest:'<%= dist %>/<%= filename %>-<%= pkg.version %>.min.js'
+        dest:'<%= dist %>/<%= filename %>.min.js'
       },
       dist_tpls:{
         src:['<%= concat.dist_tpls.dest %>'],
-        dest:'<%= dist %>/<%= filename %>-tpls-<%= pkg.version %>.min.js'
+        dest:'<%= dist %>/<%= filename %>-tpls.min.js'
       }
     },
     html2js: {
