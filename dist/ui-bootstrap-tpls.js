@@ -3854,7 +3854,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 
 angular.module("template/accordion/accordion-group.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/accordion/accordion-group.html",
-    "<div class=\"panel panel-default\">\n" +
+    "<div class=\"panel panel-default\" ng-class=\"{ 'selected': isOpen }\">\n" +
     "  <div class=\"panel-heading\">\n" +
     "    <h4 class=\"panel-title\">\n" +
     "      <a class=\"accordion-toggle\" ng-click=\"toggleOpen()\" accordion-transclude=\"heading\"><span ng-class=\"{'text-muted': isDisabled}\">{{heading}}</span></a>\n" +
@@ -3863,7 +3863,8 @@ angular.module("template/accordion/accordion-group.html", []).run(["$templateCac
     "  <div class=\"panel-collapse\" collapse=\"!isOpen\">\n" +
     "	  <div class=\"panel-body\" ng-transclude></div>\n" +
     "  </div>\n" +
-    "</div>");
+    "</div>\n" +
+    "");
 }]);
 
 angular.module("template/accordion/accordion.html", []).run(["$templateCache", function($templateCache) {
