@@ -1,8 +1,8 @@
 {
-  "author": "https://github.com/angular-ui/bootstrap/graphs/contributors",
-  "name": "angular-ui-bootstrap",
+  "author": "https://github.com/robertcasanova",
+  "name": "bootstrap",
   "version": "0.13.2.1",
-  "homepage": "http://angular-ui.github.io/bootstrap/",
+  "homepage": "https://github.com/robertcasanova/bootstrap",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
