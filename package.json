@@ -1,7 +1,7 @@
 {
   "author": "https://github.com/robertcasanova",
   "name": "bootstrap",
-  "version": "0.13.2.1",
+  "version": "0.13.3",
   "homepage": "https://github.com/robertcasanova/bootstrap",
   "dependencies": {},
   "devDependencies": {
