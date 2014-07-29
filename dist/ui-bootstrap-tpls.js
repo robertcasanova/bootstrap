@@ -2,7 +2,7 @@
  * bootstrap
  * https://github.com/robertcasanova/bootstrap
 
- * Version: 0.13.3 - 2014-07-28
+ * Version: 0.13.3 - 2014-07-29
  * License: MIT
  */
 angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdown","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]);
@@ -231,6 +231,7 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
     templateUrl:'template/accordion/accordion-group.html',
     scope: {
       heading: '@',               // Interpolate the heading attribute onto this scope
+      toggleArrow: '=',
       isOpen: '=?',
       isDisabled: '=?'
     },
@@ -240,11 +241,21 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
       };
     },
     link: function(scope, element, attrs, accordionCtrl) {
+
       accordionCtrl.addGroup(scope);
+      scope.isOpen = scope.isOpen || false;
 
       scope.$watch('isOpen', function(value) {
         if ( value ) {
           accordionCtrl.closeOthers(scope);
+
+          if(scope.toggleArrow){
+            scope.iconClass = scope.toggleArrow.iconOpen;
+          }
+        } else {
+          if(scope.toggleArrow){
+            scope.iconClass = scope.toggleArrow.iconClose;
+          }
         }
       });
 
@@ -286,11 +297,13 @@ angular.module('ui.bootstrap.accordion', ['ui.bootstrap.collapse'])
 .directive('accordionTransclude', function() {
   return {
     require: '^accordionGroup',
+    replace: true,
+    template: '',
     link: function(scope, element, attr, controller) {
       scope.$watch(function() { return controller[attr.accordionTransclude]; }, function(heading) {
         if ( heading ) {
-          element.html('');
-          element.append(heading);
+          element.parent().prepend(heading);
+          element.remove();
         }
       });
     }
@@ -3857,11 +3870,16 @@ angular.module("template/accordion/accordion-group.html", []).run(["$templateCac
     "<div class=\"panel panel-default\" ng-class=\"{ 'selected': isOpen }\">\n" +
     "  <div class=\"panel-heading\">\n" +
     "    <h4 class=\"panel-title\">\n" +
-    "      <a class=\"accordion-toggle\" ng-click=\"toggleOpen()\" accordion-transclude=\"heading\"><span ng-class=\"{'text-muted': isDisabled}\">{{heading}}</span></a>\n" +
+    "        <a class=\"accordion-toggle\" ng-click=\"toggleOpen()\">\n" +
+    "            <span accordion-transclude=\"heading\">\n" +
+    "                <span ng-class=\"{'text-muted': isDisabled}\">{{heading}}</span>\n" +
+    "            </span>\n" +
+    "            <i ng-if=\"toggleArrow\" class=\"pull-right\" ng-class=\"{true: toggleArrow.iconOpen, false: toggleArrow.iconClose}[isOpen]\"></i>\n" +
+    "        </a>\n" +
     "    </h4>\n" +
     "  </div>\n" +
     "  <div class=\"panel-collapse\" collapse=\"!isOpen\">\n" +
-    "	  <div class=\"panel-body\" ng-transclude></div>\n" +
+    "      <div class=\"panel-body\" ng-transclude></div>\n" +
     "  </div>\n" +
     "</div>\n" +
     "");
