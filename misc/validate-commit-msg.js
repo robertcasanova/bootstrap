@@ -37,44 +37,9 @@ var error = function() {
 
 
 var validateMessage = function(message) {
-  var isValid = true;
 
-  if (IGNORED.test(message)) {
-    console.log('Commit message validation ignored.');
-    return true;
-  }
 
-  if (message.length > MAX_LENGTH) {
-    error('is longer than %d characters !', MAX_LENGTH);
-    isValid = false;
-  }
-
-  var match = PATTERN.exec(message);
-
-  if (!match) {
-    error('does not match "<type>(<scope>): <subject>" ! was: "' + message + '"\nNote: <scope> must be only letters.');
-    return false;
-  }
-
-  var type = match[1];
-  var scope = match[3];
-  var subject = match[4];
-
-  if (!TYPES.hasOwnProperty(type)) {
-    error('"%s" is not allowed type !', type);
-    return false;
-  }
-
-  // Some more ideas, do want anything like this ?
-  // - allow only specific scopes (eg. fix(docs) should not be allowed ?
-  // - auto correct the type to lower case ?
-  // - auto correct first letter of the subject to lower case ?
-  // - auto add empty line after subject ?
-  // - auto remove empty () ?
-  // - auto correct typos in type ?
-  // - store incorrect messages, so that we can learn
-
-  return isValid;
+  return true;
 };
 
 
