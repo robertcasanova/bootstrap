@@ -1,7 +1,12 @@
 <div class="panel panel-default" ng-class="{ 'selected': isOpen }">
   <div class="panel-heading">
     <h4 class="panel-title">
-      <a href="javascript:void(0)" tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" accordion-transclude="heading"><span ng-class="{'text-muted': isDisabled}">{{heading}}</span></a>
+        <a class="accordion-toggle" ng-click="toggleOpen()">
+            <span accordion-transclude="heading">
+                <span ng-class="{'text-muted': isDisabled}">{{heading}}</span>
+            </span>
+            <i ng-if="toggleArrow" class="pull-right" ng-class="{true: toggleArrow.iconOpen, false: toggleArrow.iconClose}[isOpen]"></i>
+        </a>
     </h4>
   </div>
   <div class="panel-collapse collapse" collapse="!isOpen">

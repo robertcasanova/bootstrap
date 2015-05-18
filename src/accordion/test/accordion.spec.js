@@ -141,9 +141,9 @@ describe('accordion', function () {
 
       it('should create accordion panels with content', function () {
         expect(groups.length).toEqual(2);
-        expect(findGroupLink(0).text()).toEqual('title 1');
+        expect(findGroupLink(0).text().trim()).toEqual('title 1');
         expect(findGroupBody(0).text().trim()).toEqual('Content 1');
-        expect(findGroupLink(1).text()).toEqual('title 2');
+        expect(findGroupLink(1).text().trim()).toEqual('title 2');
         expect(findGroupBody(1).text().trim()).toEqual('Content 2');
       });
 
@@ -195,9 +195,9 @@ describe('accordion', function () {
         scope.$digest();
         groups = element.find('.panel');
         expect(groups.length).toEqual(2);
-        expect(findGroupLink(0).text()).toEqual('title 1');
+        expect(findGroupLink(0).text().trim()).toEqual('title 1');
         expect(findGroupBody(0).text().trim()).toEqual('Content 1');
-        expect(findGroupLink(1).text()).toEqual('title 2');
+        expect(findGroupLink(1).text().trim()).toEqual('title 2');
         expect(findGroupBody(1).text().trim()).toEqual('Content 2');
       });
 
@@ -356,10 +356,7 @@ describe('accordion', function () {
         groups = element.find('.panel');
       });
       it('transcludes the <accordion-heading> content into the heading link', function() {
-        expect(findGroupLink(0).text()).toBe('Heading Element 123 ');
-      });
-      it('attaches the same scope to the transcluded heading and body', function() {
-        expect(findGroupLink(0).find('span').scope().$id).toBe(findGroupBody(0).find('span').scope().$id);
+        expect(findGroupLink(0).text().trim()).toBe('Heading Element 123');
       });
 
     });
@@ -378,10 +375,7 @@ describe('accordion', function () {
         groups = element.find('.panel');
       });
       it('transcludes the <accordion-heading> content into the heading link', function() {
-        expect(findGroupLink(0).text()).toBe('Heading Element 123 ');
-      });
-      it('attaches the same scope to the transcluded heading and body', function() {
-        expect(findGroupLink(0).find('span').scope().$id).toBe(findGroupBody(0).find('span').scope().$id);
+        expect(findGroupLink(0).text().trim()).toBe('Heading Element 123');
       });
 
     });
@@ -392,9 +386,9 @@ describe('accordion', function () {
         scope.$digest();
         groups = element.find('.panel');
         expect(groups.length).toBe(3);
-        expect(findGroupLink(0).text()).toBe('1');
-        expect(findGroupLink(1).text()).toBe('2');
-        expect(findGroupLink(2).text()).toBe('3');
+        expect(findGroupLink(0).text().trim()).toBe('1');
+        expect(findGroupLink(1).text().trim()).toBe('2');
+        expect(findGroupLink(2).text().trim()).toBe('3');
       });
     });
 
@@ -405,9 +399,9 @@ describe('accordion', function () {
         scope.$digest();
         groups = element.find('.panel');
         expect(groups.length).toBe(3);
-        expect(findGroupLink(0).text()).toBe('1');
-        expect(findGroupLink(1).text()).toBe('2');
-        expect(findGroupLink(2).text()).toBe('3');
+        expect(findGroupLink(0).text().trim()).toBe('1');
+        expect(findGroupLink(1).text().trim()).toBe('2');
+        expect(findGroupLink(2).text().trim()).toBe('3');
       });
     });
 
